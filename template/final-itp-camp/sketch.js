@@ -18,11 +18,14 @@ var b = 0;
 
 var noiseScale=0.02;
 
+var currNoise;
+var loudestNoise;
+
 
 
 function preload() {
   // add the path to your sound
-  //sound = loadSound('../../music/Broke_For_Free_-_01_-_As_Colorful_As_Ever.mp3');
+  sound = loadSound('../../music/ganon-laugh.wav');
 }
 
 function setup() {
@@ -52,6 +55,7 @@ function setup() {
   capture.hide();
 
 
+  loudestNoise = 0;
 }
 
 
@@ -65,12 +69,13 @@ function draw() {
 
 	var vAbs = setSoundNum(v);
 
+
 	//150 is pretty loud
-	//336 is no noise
+	//336 is no noise (this is non abs)
 
 
 	//camera capture
-  if(vAbs < 75){
+  if(vAbs < 200){
   	image(capture, 0, 0, width, height);
   }else{
   	for(i = 0; i<15; i++){
@@ -78,9 +83,9 @@ function draw() {
 		}
   }
 
-  if(v > 330){
+  if(v > 300){
   	filter(THRESHOLD,.9);
-  }else if(v > 250){
+  }else if(v > 180){
   	filter(THRESHOLD, .3);
   }else{
   	filter(POSTERIZE, 5);
@@ -89,7 +94,7 @@ function draw() {
 	stroke(255);
 
 	for(i=0; i < vAbs; i++){
-		if(vAbs < 150){
+		if(vAbs < 230){
 			stroke(255);
 			line(Math.random() * width, Math.random() * height, Math.random() * width, Math.random() * height);
 		}
@@ -100,6 +105,7 @@ function draw() {
 			stroke(Math.random() * 50, 20, 20, 50);
 			line(Math.random() * width/7, Math.random() * height/7, Math.random() * width/7, Math.random() * height/7);
 		}
+
 	}
 
 
@@ -122,9 +128,25 @@ function draw() {
 
 	//text('level: ' + v, 20, 20);
 
+	currNoise = vAbs;
+
+
+	if(currNoise > loudestNoise){
+		loudestNoise = currNoise;
+		console.log(loudestNoise);
+	}
+
+
+
+
+	if(loudestNoise > 640){
+		image(capture, 0, 0, width, height);
+		sound.play();
+	}
+
 
 }
 
 function setSoundNum(n){
-	return (336 - n);
+	return (379 - n);
 }
