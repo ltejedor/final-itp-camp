@@ -70,7 +70,7 @@ function draw() {
 
 
 	//camera capture
-  if(v>300){
+  if(vAbs < 75){
   	image(capture, 0, 0, width, height);
   }else{
   	for(i = 0; i<15; i++){
@@ -89,13 +89,16 @@ function draw() {
 	stroke(255);
 
 	for(i=0; i < vAbs; i++){
-		if(vAbs < 100){
+		if(vAbs < 150){
 			stroke(255);
 			line(Math.random() * width, Math.random() * height, Math.random() * width, Math.random() * height);
 		}
 		else{
 			stroke(Math.random() * 255, Math.random() * 100, Math.random() * 55);
 			line(Math.random() * width, Math.random() * height, Math.random() * width, Math.random() * height);
+
+			stroke(Math.random() * 50, 20, 20, 50);
+			line(Math.random() * width/7, Math.random() * height/7, Math.random() * width/7, Math.random() * height/7);
 		}
 	}
 
@@ -109,16 +112,12 @@ function draw() {
 
 
 	//make dirt particles go into the air as sound increases
-a
 
 
 	//make dirt go into certain shapes and change colors at certain sound levels
 
 
 	//extra credit (haha) - if the camera movies a lot make holes appear in the dirt!
-
-
-
 
 
 	//text('level: ' + v, 20, 20);
